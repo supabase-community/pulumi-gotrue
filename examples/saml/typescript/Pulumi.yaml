@@ -1,0 +1,3 @@
+name: saml-example
+description: A basic GoTrue SAML example with Pulumi
+runtime: nodejs
