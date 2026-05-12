@@ -1,0 +1,177 @@
+{
+    "name": "gotrue",
+    "displayName": "GoTrue",
+    "description": "A Pulumi package for creating and managing GoTrue authentication resources.",
+    "keywords": [
+        "pulumi",
+        "gotrue",
+        "category/cloud"
+    ],
+    "homepage": "https://github.com/supabase-community/pulumi-gotrue",
+    "license": "MIT",
+    "attribution": "This Pulumi package is based on the [`gotrue` Terraform Provider](https://github.com/supabase-community/terraform-provider-gotrue).",
+    "repository": "https://github.com/supabase-community/pulumi-gotrue",
+    "pluginDownloadURL": "github://api.github.com/supabase-community/pulumi-gotrue",
+    "publisher": "Supabase",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*"
+            }
+        },
+        "go": {
+            "generateExtraInputTypes": true,
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/supabase-community/pulumi-gotrue/sdk/go/gotrue"
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing GoTrue authentication resources.",
+            "packageName": "@supabase-community/pulumi-gotrue",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/supabase-community/terraform-provider-gotrue)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-gotrue` repo](https://github.com/supabase-community/pulumi-gotrue/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-gotrue` repo](https://github.com/supabase-community/terraform-provider-gotrue/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/supabase-community/terraform-provider-gotrue)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-gotrue` repo](https://github.com/supabase-community/pulumi-gotrue/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-gotrue` repo](https://github.com/supabase-community/terraform-provider-gotrue/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    },
+    "config": {
+        "variables": {
+            "headers": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "defaults": [
+            "url"
+        ]
+    },
+    "provider": {
+        "description": "The provider type for the gotrue package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "headers": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "url"
+        ],
+        "inputProperties": {
+            "headers": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "string"
+                }
+            },
+            "url": {
+                "type": "string"
+            }
+        },
+        "requiredInputs": [
+            "url"
+        ]
+    },
+    "resources": {
+        "gotrue:index/samlIdentityProvider:SamlIdentityProvider": {
+            "properties": {
+                "attributeMapping": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "metadataUrl": {
+                    "type": "string"
+                },
+                "metadataXml": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "createdAt",
+                "updatedAt"
+            ],
+            "inputProperties": {
+                "attributeMapping": {
+                    "type": "string"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "metadataUrl": {
+                    "type": "string"
+                },
+                "metadataXml": {
+                    "type": "string"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering SamlIdentityProvider resources.\n",
+                "properties": {
+                    "attributeMapping": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "domains": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "metadataUrl": {
+                        "type": "string"
+                    },
+                    "metadataXml": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
