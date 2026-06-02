@@ -82,6 +82,14 @@ func Provider() tfbridge.ProviderInfo {
 			"gotrue_saml_identity_provider": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "SamlIdentityProvider"),
 			},
+			"gotrue_custom_oauth_provider": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CustomOauthProvider"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"client_secret": {
+						Secret: tfbridge.True(),
+					},
+				},
+			},
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.

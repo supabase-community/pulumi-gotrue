@@ -5,6 +5,7 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .custom_oauth_provider import *
 from .provider import *
 from .saml_identity_provider import *
 
@@ -18,6 +19,14 @@ else:
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "gotrue",
+  "mod": "index/customOauthProvider",
+  "fqn": "pulumi_gotrue",
+  "classes": {
+   "gotrue:index/customOauthProvider:CustomOauthProvider": "CustomOauthProvider"
+  }
+ },
  {
   "pkg": "gotrue",
   "mod": "index/samlIdentityProvider",

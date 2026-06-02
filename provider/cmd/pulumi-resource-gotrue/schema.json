@@ -100,6 +100,253 @@
         ]
     },
     "resources": {
+        "gotrue:index/customOauthProvider:CustomOauthProvider": {
+            "properties": {
+                "acceptableClientIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "attributeMapping": {
+                    "type": "string"
+                },
+                "authorizationParams": {
+                    "type": "string"
+                },
+                "authorizationUrl": {
+                    "type": "string"
+                },
+                "clientId": {
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "type": "string",
+                    "secret": true
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "discoveryDocument": {
+                    "type": "string"
+                },
+                "discoveryUrl": {
+                    "type": "string"
+                },
+                "emailOptional": {
+                    "type": "boolean"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "issuer": {
+                    "type": "string"
+                },
+                "jwksUri": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pkceEnabled": {
+                    "type": "boolean"
+                },
+                "providerType": {
+                    "type": "string"
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skipNonceCheck": {
+                    "type": "boolean"
+                },
+                "tokenUrl": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userinfoUrl": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "clientId",
+                "clientSecret",
+                "createdAt",
+                "discoveryDocument",
+                "emailOptional",
+                "enabled",
+                "identifier",
+                "name",
+                "pkceEnabled",
+                "providerType",
+                "scopes",
+                "skipNonceCheck",
+                "updatedAt"
+            ],
+            "inputProperties": {
+                "acceptableClientIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "attributeMapping": {
+                    "type": "string"
+                },
+                "authorizationParams": {
+                    "type": "string"
+                },
+                "authorizationUrl": {
+                    "type": "string"
+                },
+                "clientId": {
+                    "type": "string"
+                },
+                "clientSecret": {
+                    "type": "string",
+                    "secret": true
+                },
+                "discoveryUrl": {
+                    "type": "string"
+                },
+                "emailOptional": {
+                    "type": "boolean"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "identifier": {
+                    "type": "string",
+                    "willReplaceOnChanges": true
+                },
+                "issuer": {
+                    "type": "string"
+                },
+                "jwksUri": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pkceEnabled": {
+                    "type": "boolean"
+                },
+                "providerType": {
+                    "type": "string",
+                    "willReplaceOnChanges": true
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "skipNonceCheck": {
+                    "type": "boolean"
+                },
+                "tokenUrl": {
+                    "type": "string"
+                },
+                "userinfoUrl": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "clientId",
+                "clientSecret",
+                "identifier",
+                "providerType"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CustomOauthProvider resources.\n",
+                "properties": {
+                    "acceptableClientIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "attributeMapping": {
+                        "type": "string"
+                    },
+                    "authorizationParams": {
+                        "type": "string"
+                    },
+                    "authorizationUrl": {
+                        "type": "string"
+                    },
+                    "clientId": {
+                        "type": "string"
+                    },
+                    "clientSecret": {
+                        "type": "string",
+                        "secret": true
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "discoveryDocument": {
+                        "type": "string"
+                    },
+                    "discoveryUrl": {
+                        "type": "string"
+                    },
+                    "emailOptional": {
+                        "type": "boolean"
+                    },
+                    "enabled": {
+                        "type": "boolean"
+                    },
+                    "identifier": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "issuer": {
+                        "type": "string"
+                    },
+                    "jwksUri": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "pkceEnabled": {
+                        "type": "boolean"
+                    },
+                    "providerType": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "scopes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "skipNonceCheck": {
+                        "type": "boolean"
+                    },
+                    "tokenUrl": {
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "userinfoUrl": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "gotrue:index/samlIdentityProvider:SamlIdentityProvider": {
             "properties": {
                 "attributeMapping": {

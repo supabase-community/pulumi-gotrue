@@ -1,0 +1,3 @@
+name: custom-oauth-example
+description: A GoTrue custom OAuth/OIDC provider example with Pulumi
+runtime: nodejs
