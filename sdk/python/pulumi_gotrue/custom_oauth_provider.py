@@ -19,7 +19,6 @@ class CustomOauthProviderArgs:
                  identifier: pulumi.Input[str],
                  provider_type: pulumi.Input[str],
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 attribute_mapping: Optional[pulumi.Input[str]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
                  discovery_url: Optional[pulumi.Input[str]] = None,
@@ -42,8 +41,6 @@ class CustomOauthProviderArgs:
         pulumi.set(__self__, "provider_type", provider_type)
         if acceptable_client_ids is not None:
             pulumi.set(__self__, "acceptable_client_ids", acceptable_client_ids)
-        if attribute_mapping is not None:
-            pulumi.set(__self__, "attribute_mapping", attribute_mapping)
         if authorization_params is not None:
             pulumi.set(__self__, "authorization_params", authorization_params)
         if authorization_url is not None:
@@ -115,15 +112,6 @@ class CustomOauthProviderArgs:
     @acceptable_client_ids.setter
     def acceptable_client_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "acceptable_client_ids", value)
-
-    @property
-    @pulumi.getter(name="attributeMapping")
-    def attribute_mapping(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "attribute_mapping")
-
-    @attribute_mapping.setter
-    def attribute_mapping(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "attribute_mapping", value)
 
     @property
     @pulumi.getter(name="authorizationParams")
@@ -247,12 +235,10 @@ class CustomOauthProviderArgs:
 class _CustomOauthProviderState:
     def __init__(__self__, *,
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 attribute_mapping: Optional[pulumi.Input[str]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
                  client_secret: Optional[pulumi.Input[str]] = None,
-                 created_at: Optional[pulumi.Input[str]] = None,
                  discovery_document: Optional[pulumi.Input[str]] = None,
                  discovery_url: Optional[pulumi.Input[str]] = None,
                  email_optional: Optional[pulumi.Input[bool]] = None,
@@ -266,15 +252,12 @@ class _CustomOauthProviderState:
                  scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  skip_nonce_check: Optional[pulumi.Input[bool]] = None,
                  token_url: Optional[pulumi.Input[str]] = None,
-                 updated_at: Optional[pulumi.Input[str]] = None,
                  userinfo_url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering CustomOauthProvider resources.
         """
         if acceptable_client_ids is not None:
             pulumi.set(__self__, "acceptable_client_ids", acceptable_client_ids)
-        if attribute_mapping is not None:
-            pulumi.set(__self__, "attribute_mapping", attribute_mapping)
         if authorization_params is not None:
             pulumi.set(__self__, "authorization_params", authorization_params)
         if authorization_url is not None:
@@ -283,8 +266,6 @@ class _CustomOauthProviderState:
             pulumi.set(__self__, "client_id", client_id)
         if client_secret is not None:
             pulumi.set(__self__, "client_secret", client_secret)
-        if created_at is not None:
-            pulumi.set(__self__, "created_at", created_at)
         if discovery_document is not None:
             pulumi.set(__self__, "discovery_document", discovery_document)
         if discovery_url is not None:
@@ -311,8 +292,6 @@ class _CustomOauthProviderState:
             pulumi.set(__self__, "skip_nonce_check", skip_nonce_check)
         if token_url is not None:
             pulumi.set(__self__, "token_url", token_url)
-        if updated_at is not None:
-            pulumi.set(__self__, "updated_at", updated_at)
         if userinfo_url is not None:
             pulumi.set(__self__, "userinfo_url", userinfo_url)
 
@@ -324,15 +303,6 @@ class _CustomOauthProviderState:
     @acceptable_client_ids.setter
     def acceptable_client_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "acceptable_client_ids", value)
-
-    @property
-    @pulumi.getter(name="attributeMapping")
-    def attribute_mapping(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "attribute_mapping")
-
-    @attribute_mapping.setter
-    def attribute_mapping(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "attribute_mapping", value)
 
     @property
     @pulumi.getter(name="authorizationParams")
@@ -369,15 +339,6 @@ class _CustomOauthProviderState:
     @client_secret.setter
     def client_secret(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "client_secret", value)
-
-    @property
-    @pulumi.getter(name="createdAt")
-    def created_at(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "created_at")
-
-    @created_at.setter
-    def created_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "created_at", value)
 
     @property
     @pulumi.getter(name="discoveryDocument")
@@ -497,15 +458,6 @@ class _CustomOauthProviderState:
         pulumi.set(self, "token_url", value)
 
     @property
-    @pulumi.getter(name="updatedAt")
-    def updated_at(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "updated_at")
-
-    @updated_at.setter
-    def updated_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "updated_at", value)
-
-    @property
     @pulumi.getter(name="userinfoUrl")
     def userinfo_url(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "userinfo_url")
@@ -521,7 +473,6 @@ class CustomOauthProvider(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 attribute_mapping: Optional[pulumi.Input[str]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
@@ -569,7 +520,6 @@ class CustomOauthProvider(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 attribute_mapping: Optional[pulumi.Input[str]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
@@ -597,7 +547,6 @@ class CustomOauthProvider(pulumi.CustomResource):
             __props__ = CustomOauthProviderArgs.__new__(CustomOauthProviderArgs)
 
             __props__.__dict__["acceptable_client_ids"] = acceptable_client_ids
-            __props__.__dict__["attribute_mapping"] = attribute_mapping
             __props__.__dict__["authorization_params"] = authorization_params
             __props__.__dict__["authorization_url"] = authorization_url
             if client_id is None and not opts.urn:
@@ -623,9 +572,7 @@ class CustomOauthProvider(pulumi.CustomResource):
             __props__.__dict__["skip_nonce_check"] = skip_nonce_check
             __props__.__dict__["token_url"] = token_url
             __props__.__dict__["userinfo_url"] = userinfo_url
-            __props__.__dict__["created_at"] = None
             __props__.__dict__["discovery_document"] = None
-            __props__.__dict__["updated_at"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["clientSecret"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(CustomOauthProvider, __self__).__init__(
@@ -639,12 +586,10 @@ class CustomOauthProvider(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-            attribute_mapping: Optional[pulumi.Input[str]] = None,
             authorization_params: Optional[pulumi.Input[str]] = None,
             authorization_url: Optional[pulumi.Input[str]] = None,
             client_id: Optional[pulumi.Input[str]] = None,
             client_secret: Optional[pulumi.Input[str]] = None,
-            created_at: Optional[pulumi.Input[str]] = None,
             discovery_document: Optional[pulumi.Input[str]] = None,
             discovery_url: Optional[pulumi.Input[str]] = None,
             email_optional: Optional[pulumi.Input[bool]] = None,
@@ -658,7 +603,6 @@ class CustomOauthProvider(pulumi.CustomResource):
             scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             skip_nonce_check: Optional[pulumi.Input[bool]] = None,
             token_url: Optional[pulumi.Input[str]] = None,
-            updated_at: Optional[pulumi.Input[str]] = None,
             userinfo_url: Optional[pulumi.Input[str]] = None) -> 'CustomOauthProvider':
         """
         Get an existing CustomOauthProvider resource's state with the given name, id, and optional extra
@@ -673,12 +617,10 @@ class CustomOauthProvider(pulumi.CustomResource):
         __props__ = _CustomOauthProviderState.__new__(_CustomOauthProviderState)
 
         __props__.__dict__["acceptable_client_ids"] = acceptable_client_ids
-        __props__.__dict__["attribute_mapping"] = attribute_mapping
         __props__.__dict__["authorization_params"] = authorization_params
         __props__.__dict__["authorization_url"] = authorization_url
         __props__.__dict__["client_id"] = client_id
         __props__.__dict__["client_secret"] = client_secret
-        __props__.__dict__["created_at"] = created_at
         __props__.__dict__["discovery_document"] = discovery_document
         __props__.__dict__["discovery_url"] = discovery_url
         __props__.__dict__["email_optional"] = email_optional
@@ -692,7 +634,6 @@ class CustomOauthProvider(pulumi.CustomResource):
         __props__.__dict__["scopes"] = scopes
         __props__.__dict__["skip_nonce_check"] = skip_nonce_check
         __props__.__dict__["token_url"] = token_url
-        __props__.__dict__["updated_at"] = updated_at
         __props__.__dict__["userinfo_url"] = userinfo_url
         return CustomOauthProvider(resource_name, opts=opts, __props__=__props__)
 
@@ -700,11 +641,6 @@ class CustomOauthProvider(pulumi.CustomResource):
     @pulumi.getter(name="acceptableClientIds")
     def acceptable_client_ids(self) -> pulumi.Output[Optional[Sequence[str]]]:
         return pulumi.get(self, "acceptable_client_ids")
-
-    @property
-    @pulumi.getter(name="attributeMapping")
-    def attribute_mapping(self) -> pulumi.Output[Optional[str]]:
-        return pulumi.get(self, "attribute_mapping")
 
     @property
     @pulumi.getter(name="authorizationParams")
@@ -725,11 +661,6 @@ class CustomOauthProvider(pulumi.CustomResource):
     @pulumi.getter(name="clientSecret")
     def client_secret(self) -> pulumi.Output[str]:
         return pulumi.get(self, "client_secret")
-
-    @property
-    @pulumi.getter(name="createdAt")
-    def created_at(self) -> pulumi.Output[str]:
-        return pulumi.get(self, "created_at")
 
     @property
     @pulumi.getter(name="discoveryDocument")
@@ -795,11 +726,6 @@ class CustomOauthProvider(pulumi.CustomResource):
     @pulumi.getter(name="tokenUrl")
     def token_url(self) -> pulumi.Output[Optional[str]]:
         return pulumi.get(self, "token_url")
-
-    @property
-    @pulumi.getter(name="updatedAt")
-    def updated_at(self) -> pulumi.Output[str]:
-        return pulumi.get(self, "updated_at")
 
     @property
     @pulumi.getter(name="userinfoUrl")

@@ -118,10 +118,15 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
-			// See the documentation for tfbridge.OverlayInfo for how to lay out this
-			// section, or refer to the AWS provider. Delete this section if there are
-			// no overlay files.
-			//Overlay: &tfbridge.OverlayInfo{},
+			// config/utilities.ts re-exports from ../utilities to satisfy the
+			// bridge-generated `import * as utilities from "./utilities"` in config/vars.ts.
+			Overlay: &tfbridge.OverlayInfo{
+				Modules: map[string]*tfbridge.OverlayInfo{
+					"config": {
+						DestFiles: []string{"vars.ts"},
+					},
+				},
+			},
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(

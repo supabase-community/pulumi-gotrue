@@ -15,9 +15,6 @@ namespace Pulumi.Gotrue
         [Output("acceptableClientIds")]
         public Output<ImmutableArray<string>> AcceptableClientIds { get; private set; } = null!;
 
-        [Output("attributeMapping")]
-        public Output<string?> AttributeMapping { get; private set; } = null!;
-
         [Output("authorizationParams")]
         public Output<string?> AuthorizationParams { get; private set; } = null!;
 
@@ -29,9 +26,6 @@ namespace Pulumi.Gotrue
 
         [Output("clientSecret")]
         public Output<string> ClientSecret { get; private set; } = null!;
-
-        [Output("createdAt")]
-        public Output<string> CreatedAt { get; private set; } = null!;
 
         [Output("discoveryDocument")]
         public Output<string> DiscoveryDocument { get; private set; } = null!;
@@ -71,9 +65,6 @@ namespace Pulumi.Gotrue
 
         [Output("tokenUrl")]
         public Output<string?> TokenUrl { get; private set; } = null!;
-
-        [Output("updatedAt")]
-        public Output<string> UpdatedAt { get; private set; } = null!;
 
         [Output("userinfoUrl")]
         public Output<string?> UserinfoUrl { get; private set; } = null!;
@@ -136,9 +127,6 @@ namespace Pulumi.Gotrue
             get => _acceptableClientIds ?? (_acceptableClientIds = new InputList<string>());
             set => _acceptableClientIds = value;
         }
-
-        [Input("attributeMapping")]
-        public Input<string>? AttributeMapping { get; set; }
 
         [Input("authorizationParams")]
         public Input<string>? AuthorizationParams { get; set; }
@@ -221,9 +209,6 @@ namespace Pulumi.Gotrue
             set => _acceptableClientIds = value;
         }
 
-        [Input("attributeMapping")]
-        public Input<string>? AttributeMapping { get; set; }
-
         [Input("authorizationParams")]
         public Input<string>? AuthorizationParams { get; set; }
 
@@ -244,9 +229,6 @@ namespace Pulumi.Gotrue
                 _clientSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
             }
         }
-
-        [Input("createdAt")]
-        public Input<string>? CreatedAt { get; set; }
 
         [Input("discoveryDocument")]
         public Input<string>? DiscoveryDocument { get; set; }
@@ -291,9 +273,6 @@ namespace Pulumi.Gotrue
 
         [Input("tokenUrl")]
         public Input<string>? TokenUrl { get; set; }
-
-        [Input("updatedAt")]
-        public Input<string>? UpdatedAt { get; set; }
 
         [Input("userinfoUrl")]
         public Input<string>? UserinfoUrl { get; set; }

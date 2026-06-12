@@ -15,12 +15,10 @@ type CustomOauthProvider struct {
 	pulumi.CustomResourceState
 
 	AcceptableClientIds pulumi.StringArrayOutput `pulumi:"acceptableClientIds"`
-	AttributeMapping    pulumi.StringPtrOutput   `pulumi:"attributeMapping"`
 	AuthorizationParams pulumi.StringPtrOutput   `pulumi:"authorizationParams"`
 	AuthorizationUrl    pulumi.StringPtrOutput   `pulumi:"authorizationUrl"`
 	ClientId            pulumi.StringOutput      `pulumi:"clientId"`
 	ClientSecret        pulumi.StringOutput      `pulumi:"clientSecret"`
-	CreatedAt           pulumi.StringOutput      `pulumi:"createdAt"`
 	DiscoveryDocument   pulumi.StringOutput      `pulumi:"discoveryDocument"`
 	DiscoveryUrl        pulumi.StringPtrOutput   `pulumi:"discoveryUrl"`
 	EmailOptional       pulumi.BoolOutput        `pulumi:"emailOptional"`
@@ -34,7 +32,6 @@ type CustomOauthProvider struct {
 	Scopes              pulumi.StringArrayOutput `pulumi:"scopes"`
 	SkipNonceCheck      pulumi.BoolOutput        `pulumi:"skipNonceCheck"`
 	TokenUrl            pulumi.StringPtrOutput   `pulumi:"tokenUrl"`
-	UpdatedAt           pulumi.StringOutput      `pulumi:"updatedAt"`
 	UserinfoUrl         pulumi.StringPtrOutput   `pulumi:"userinfoUrl"`
 }
 
@@ -88,12 +85,10 @@ func GetCustomOauthProvider(ctx *pulumi.Context,
 // Input properties used for looking up and filtering CustomOauthProvider resources.
 type customOauthProviderState struct {
 	AcceptableClientIds []string `pulumi:"acceptableClientIds"`
-	AttributeMapping    *string  `pulumi:"attributeMapping"`
 	AuthorizationParams *string  `pulumi:"authorizationParams"`
 	AuthorizationUrl    *string  `pulumi:"authorizationUrl"`
 	ClientId            *string  `pulumi:"clientId"`
 	ClientSecret        *string  `pulumi:"clientSecret"`
-	CreatedAt           *string  `pulumi:"createdAt"`
 	DiscoveryDocument   *string  `pulumi:"discoveryDocument"`
 	DiscoveryUrl        *string  `pulumi:"discoveryUrl"`
 	EmailOptional       *bool    `pulumi:"emailOptional"`
@@ -107,18 +102,15 @@ type customOauthProviderState struct {
 	Scopes              []string `pulumi:"scopes"`
 	SkipNonceCheck      *bool    `pulumi:"skipNonceCheck"`
 	TokenUrl            *string  `pulumi:"tokenUrl"`
-	UpdatedAt           *string  `pulumi:"updatedAt"`
 	UserinfoUrl         *string  `pulumi:"userinfoUrl"`
 }
 
 type CustomOauthProviderState struct {
 	AcceptableClientIds pulumi.StringArrayInput
-	AttributeMapping    pulumi.StringPtrInput
 	AuthorizationParams pulumi.StringPtrInput
 	AuthorizationUrl    pulumi.StringPtrInput
 	ClientId            pulumi.StringPtrInput
 	ClientSecret        pulumi.StringPtrInput
-	CreatedAt           pulumi.StringPtrInput
 	DiscoveryDocument   pulumi.StringPtrInput
 	DiscoveryUrl        pulumi.StringPtrInput
 	EmailOptional       pulumi.BoolPtrInput
@@ -132,7 +124,6 @@ type CustomOauthProviderState struct {
 	Scopes              pulumi.StringArrayInput
 	SkipNonceCheck      pulumi.BoolPtrInput
 	TokenUrl            pulumi.StringPtrInput
-	UpdatedAt           pulumi.StringPtrInput
 	UserinfoUrl         pulumi.StringPtrInput
 }
 
@@ -142,7 +133,6 @@ func (CustomOauthProviderState) ElementType() reflect.Type {
 
 type customOauthProviderArgs struct {
 	AcceptableClientIds []string `pulumi:"acceptableClientIds"`
-	AttributeMapping    *string  `pulumi:"attributeMapping"`
 	AuthorizationParams *string  `pulumi:"authorizationParams"`
 	AuthorizationUrl    *string  `pulumi:"authorizationUrl"`
 	ClientId            string   `pulumi:"clientId"`
@@ -165,7 +155,6 @@ type customOauthProviderArgs struct {
 // The set of arguments for constructing a CustomOauthProvider resource.
 type CustomOauthProviderArgs struct {
 	AcceptableClientIds pulumi.StringArrayInput
-	AttributeMapping    pulumi.StringPtrInput
 	AuthorizationParams pulumi.StringPtrInput
 	AuthorizationUrl    pulumi.StringPtrInput
 	ClientId            pulumi.StringInput
@@ -276,10 +265,6 @@ func (o CustomOauthProviderOutput) AcceptableClientIds() pulumi.StringArrayOutpu
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringArrayOutput { return v.AcceptableClientIds }).(pulumi.StringArrayOutput)
 }
 
-func (o CustomOauthProviderOutput) AttributeMapping() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.AttributeMapping }).(pulumi.StringPtrOutput)
-}
-
 func (o CustomOauthProviderOutput) AuthorizationParams() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.AuthorizationParams }).(pulumi.StringPtrOutput)
 }
@@ -294,10 +279,6 @@ func (o CustomOauthProviderOutput) ClientId() pulumi.StringOutput {
 
 func (o CustomOauthProviderOutput) ClientSecret() pulumi.StringOutput {
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringOutput { return v.ClientSecret }).(pulumi.StringOutput)
-}
-
-func (o CustomOauthProviderOutput) CreatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringOutput { return v.CreatedAt }).(pulumi.StringOutput)
 }
 
 func (o CustomOauthProviderOutput) DiscoveryDocument() pulumi.StringOutput {
@@ -350,10 +331,6 @@ func (o CustomOauthProviderOutput) SkipNonceCheck() pulumi.BoolOutput {
 
 func (o CustomOauthProviderOutput) TokenUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.TokenUrl }).(pulumi.StringPtrOutput)
-}
-
-func (o CustomOauthProviderOutput) UpdatedAt() pulumi.StringOutput {
-	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringOutput { return v.UpdatedAt }).(pulumi.StringOutput)
 }
 
 func (o CustomOauthProviderOutput) UserinfoUrl() pulumi.StringPtrOutput {

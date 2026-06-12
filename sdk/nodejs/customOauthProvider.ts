@@ -33,12 +33,10 @@ export class CustomOauthProvider extends pulumi.CustomResource {
     }
 
     public readonly acceptableClientIds!: pulumi.Output<string[] | undefined>;
-    public readonly attributeMapping!: pulumi.Output<string | undefined>;
     public readonly authorizationParams!: pulumi.Output<string | undefined>;
     public readonly authorizationUrl!: pulumi.Output<string | undefined>;
     public readonly clientId!: pulumi.Output<string>;
     public readonly clientSecret!: pulumi.Output<string>;
-    public /*out*/ readonly createdAt!: pulumi.Output<string>;
     public /*out*/ readonly discoveryDocument!: pulumi.Output<string>;
     public readonly discoveryUrl!: pulumi.Output<string | undefined>;
     public readonly emailOptional!: pulumi.Output<boolean>;
@@ -52,7 +50,6 @@ export class CustomOauthProvider extends pulumi.CustomResource {
     public readonly scopes!: pulumi.Output<string[]>;
     public readonly skipNonceCheck!: pulumi.Output<boolean>;
     public readonly tokenUrl!: pulumi.Output<string | undefined>;
-    public /*out*/ readonly updatedAt!: pulumi.Output<string>;
     public readonly userinfoUrl!: pulumi.Output<string | undefined>;
 
     /**
@@ -69,12 +66,10 @@ export class CustomOauthProvider extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as CustomOauthProviderState | undefined;
             resourceInputs["acceptableClientIds"] = state ? state.acceptableClientIds : undefined;
-            resourceInputs["attributeMapping"] = state ? state.attributeMapping : undefined;
             resourceInputs["authorizationParams"] = state ? state.authorizationParams : undefined;
             resourceInputs["authorizationUrl"] = state ? state.authorizationUrl : undefined;
             resourceInputs["clientId"] = state ? state.clientId : undefined;
             resourceInputs["clientSecret"] = state ? state.clientSecret : undefined;
-            resourceInputs["createdAt"] = state ? state.createdAt : undefined;
             resourceInputs["discoveryDocument"] = state ? state.discoveryDocument : undefined;
             resourceInputs["discoveryUrl"] = state ? state.discoveryUrl : undefined;
             resourceInputs["emailOptional"] = state ? state.emailOptional : undefined;
@@ -88,7 +83,6 @@ export class CustomOauthProvider extends pulumi.CustomResource {
             resourceInputs["scopes"] = state ? state.scopes : undefined;
             resourceInputs["skipNonceCheck"] = state ? state.skipNonceCheck : undefined;
             resourceInputs["tokenUrl"] = state ? state.tokenUrl : undefined;
-            resourceInputs["updatedAt"] = state ? state.updatedAt : undefined;
             resourceInputs["userinfoUrl"] = state ? state.userinfoUrl : undefined;
         } else {
             const args = argsOrState as CustomOauthProviderArgs | undefined;
@@ -105,7 +99,6 @@ export class CustomOauthProvider extends pulumi.CustomResource {
                 throw new Error("Missing required property 'providerType'");
             }
             resourceInputs["acceptableClientIds"] = args ? args.acceptableClientIds : undefined;
-            resourceInputs["attributeMapping"] = args ? args.attributeMapping : undefined;
             resourceInputs["authorizationParams"] = args ? args.authorizationParams : undefined;
             resourceInputs["authorizationUrl"] = args ? args.authorizationUrl : undefined;
             resourceInputs["clientId"] = args ? args.clientId : undefined;
@@ -123,9 +116,7 @@ export class CustomOauthProvider extends pulumi.CustomResource {
             resourceInputs["skipNonceCheck"] = args ? args.skipNonceCheck : undefined;
             resourceInputs["tokenUrl"] = args ? args.tokenUrl : undefined;
             resourceInputs["userinfoUrl"] = args ? args.userinfoUrl : undefined;
-            resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["discoveryDocument"] = undefined /*out*/;
-            resourceInputs["updatedAt"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["clientSecret"] };
@@ -139,12 +130,10 @@ export class CustomOauthProvider extends pulumi.CustomResource {
  */
 export interface CustomOauthProviderState {
     acceptableClientIds?: pulumi.Input<pulumi.Input<string>[]>;
-    attributeMapping?: pulumi.Input<string>;
     authorizationParams?: pulumi.Input<string>;
     authorizationUrl?: pulumi.Input<string>;
     clientId?: pulumi.Input<string>;
     clientSecret?: pulumi.Input<string>;
-    createdAt?: pulumi.Input<string>;
     discoveryDocument?: pulumi.Input<string>;
     discoveryUrl?: pulumi.Input<string>;
     emailOptional?: pulumi.Input<boolean>;
@@ -158,7 +147,6 @@ export interface CustomOauthProviderState {
     scopes?: pulumi.Input<pulumi.Input<string>[]>;
     skipNonceCheck?: pulumi.Input<boolean>;
     tokenUrl?: pulumi.Input<string>;
-    updatedAt?: pulumi.Input<string>;
     userinfoUrl?: pulumi.Input<string>;
 }
 
@@ -167,7 +155,6 @@ export interface CustomOauthProviderState {
  */
 export interface CustomOauthProviderArgs {
     acceptableClientIds?: pulumi.Input<pulumi.Input<string>[]>;
-    attributeMapping?: pulumi.Input<string>;
     authorizationParams?: pulumi.Input<string>;
     authorizationUrl?: pulumi.Input<string>;
     clientId: pulumi.Input<string>;

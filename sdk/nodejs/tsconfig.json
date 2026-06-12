@@ -14,6 +14,7 @@
     },
     "files": [
         "config/index.ts",
+        "config/utilities.ts",
         "config/vars.ts",
         "customOauthProvider.ts",
         "index.ts",
