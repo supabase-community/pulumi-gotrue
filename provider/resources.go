@@ -123,7 +123,7 @@ func Provider() tfbridge.ProviderInfo {
 			Overlay: &tfbridge.OverlayInfo{
 				Modules: map[string]*tfbridge.OverlayInfo{
 					"config": {
-						DestFiles: []string{"vars.ts"},
+						DestFiles: []string{"utilities.ts"},
 					},
 				},
 			},
