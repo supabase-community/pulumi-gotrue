@@ -30,11 +30,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v6
       with:
         go-version: ${{matrix.goversion}}
     - name: Install pulumictl
@@ -44,9 +44,9 @@ jobs:
     - name: Set PreRelease Version
       run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)" >> $GITHUB_ENV
     - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v2
+      uses: goreleaser/goreleaser-action@v7
       with:
-        args: -p 3 release --rm-dist
+        args: -p 3 release --clean
         version: latest
     strategy:
       fail-fast: false
@@ -60,11 +60,11 @@ jobs:
     needs: publish_binary
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.goversion }}
       - name: Install pulumictl
@@ -72,18 +72,18 @@ jobs:
         with:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v2.0.0
+        uses: pulumi/actions@v4
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v6
         with:
           node-version: ${{matrix.nodeversion}}
           registry-url: ${{env.NPM_REGISTRY_URL}}
       - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{matrix.dotnetverson}}
       - name: Setup Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v6
         with:
           python-version: ${{matrix.pythonversion}}
       - name: Build SDK
