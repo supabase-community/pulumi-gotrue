@@ -82,6 +82,14 @@ func Provider() tfbridge.ProviderInfo {
 			"gotrue_saml_identity_provider": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "SamlIdentityProvider"),
 			},
+			"gotrue_custom_oauth_provider": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CustomOauthProvider"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"client_secret": {
+						Secret: tfbridge.True(),
+					},
+				},
+			},
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.
@@ -110,10 +118,15 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
-			// See the documentation for tfbridge.OverlayInfo for how to lay out this
-			// section, or refer to the AWS provider. Delete this section if there are
-			// no overlay files.
-			//Overlay: &tfbridge.OverlayInfo{},
+			// config/utilities.ts re-exports from ../utilities to satisfy the
+			// bridge-generated `import * as utilities from "./utilities"` in config/vars.ts.
+			Overlay: &tfbridge.OverlayInfo{
+				Modules: map[string]*tfbridge.OverlayInfo{
+					"config": {
+						DestFiles: []string{"vars.ts"},
+					},
+				},
+			},
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(

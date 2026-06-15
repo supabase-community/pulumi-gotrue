@@ -5,6 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export * from "./customOauthProvider";
 export * from "./provider";
 export * from "./samlIdentityProvider";
 
@@ -16,12 +17,15 @@ export {
 };
 
 // Import resources to register:
+import { CustomOauthProvider } from "./customOauthProvider";
 import { SamlIdentityProvider } from "./samlIdentityProvider";
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "gotrue:index/customOauthProvider:CustomOauthProvider":
+                return new CustomOauthProvider(name, <any>undefined, { urn })
             case "gotrue:index/samlIdentityProvider:SamlIdentityProvider":
                 return new SamlIdentityProvider(name, <any>undefined, { urn })
             default:
@@ -29,6 +33,7 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("gotrue", "index/customOauthProvider", _module)
 pulumi.runtime.registerResourceModule("gotrue", "index/samlIdentityProvider", _module)
 
 import { Provider } from "./provider";
