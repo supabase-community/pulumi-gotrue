@@ -111,10 +111,15 @@ jobs:
           password: ${{ env.PYPI_PASSWORD }}
           packages_dir: ${{github.workspace}}/sdk/python/bin/dist
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
-        uses: JS-DevTools/npm-publish@0fd2f4369c5d6bcfcde6091a7c527d810b9b5c3f # v4.1.5
-        with:
-          access: "public"
-          package: ${{github.workspace}}/sdk/nodejs/bin/package.json
+        name: Update npm for trusted publishing
+        # Node 22.x bundles npm 10.x; trusted publishing (OIDC) needs npm >= 11.5.1.
+        run: npm install -g npm@latest
+      - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
+        name: Publish package to npm
+        # No token: npm detects the GitHub Actions OIDC environment (id-token: write)
+        # and exchanges it for a short-lived credential via the configured trusted publisher.
+        run: npm publish --access public --provenance
+        working-directory: ${{github.workspace}}/sdk/nodejs/bin
       - if: ${{ matrix.language == 'dotnet' && env.PUBLISH_NUGET == 'true' }}
         name: publish nuget package
         run: |
