@@ -21,11 +21,30 @@ namespace Pulumi.Gotrue
         [Output("authorizationUrl")]
         public Output<string?> AuthorizationUrl { get; private set; } = null!;
 
+        /// <summary>
+        /// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        /// client_auth_method "private_key_jwt".
+        /// </summary>
+        [Output("clientAssertionAudience")]
+        public Output<string?> ClientAssertionAudience { get; private set; } = null!;
+
+        /// <summary>
+        /// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        /// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        /// server.
+        /// </summary>
+        [Output("clientAuthMethod")]
+        public Output<string?> ClientAuthMethod { get; private set; } = null!;
+
         [Output("clientId")]
         public Output<string> ClientId { get; private set; } = null!;
 
+        /// <summary>
+        /// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        /// "private_key_jwt".
+        /// </summary>
         [Output("clientSecret")]
-        public Output<string> ClientSecret { get; private set; } = null!;
+        public Output<string?> ClientSecret { get; private set; } = null!;
 
         [Output("discoveryDocument")]
         public Output<string> DiscoveryDocument { get; private set; } = null!;
@@ -134,11 +153,31 @@ namespace Pulumi.Gotrue
         [Input("authorizationUrl")]
         public Input<string>? AuthorizationUrl { get; set; }
 
+        /// <summary>
+        /// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        /// client_auth_method "private_key_jwt".
+        /// </summary>
+        [Input("clientAssertionAudience")]
+        public Input<string>? ClientAssertionAudience { get; set; }
+
+        /// <summary>
+        /// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        /// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        /// server.
+        /// </summary>
+        [Input("clientAuthMethod")]
+        public Input<string>? ClientAuthMethod { get; set; }
+
         [Input("clientId", required: true)]
         public Input<string> ClientId { get; set; } = null!;
 
-        [Input("clientSecret", required: true)]
+        [Input("clientSecret")]
         private Input<string>? _clientSecret;
+
+        /// <summary>
+        /// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        /// "private_key_jwt".
+        /// </summary>
         public Input<string>? ClientSecret
         {
             get => _clientSecret;
@@ -215,11 +254,31 @@ namespace Pulumi.Gotrue
         [Input("authorizationUrl")]
         public Input<string>? AuthorizationUrl { get; set; }
 
+        /// <summary>
+        /// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        /// client_auth_method "private_key_jwt".
+        /// </summary>
+        [Input("clientAssertionAudience")]
+        public Input<string>? ClientAssertionAudience { get; set; }
+
+        /// <summary>
+        /// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        /// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        /// server.
+        /// </summary>
+        [Input("clientAuthMethod")]
+        public Input<string>? ClientAuthMethod { get; set; }
+
         [Input("clientId")]
         public Input<string>? ClientId { get; set; }
 
         [Input("clientSecret")]
         private Input<string>? _clientSecret;
+
+        /// <summary>
+        /// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        /// "private_key_jwt".
+        /// </summary>
         public Input<string>? ClientSecret
         {
             get => _clientSecret;

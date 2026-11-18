@@ -35,8 +35,23 @@ export class CustomOauthProvider extends pulumi.CustomResource {
     public readonly acceptableClientIds!: pulumi.Output<string[] | undefined>;
     public readonly authorizationParams!: pulumi.Output<string | undefined>;
     public readonly authorizationUrl!: pulumi.Output<string | undefined>;
+    /**
+     * Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+     * client_auth_method "private_key_jwt".
+     */
+    public readonly clientAssertionAudience!: pulumi.Output<string | undefined>;
+    /**
+     * How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+     * assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+     * server.
+     */
+    public readonly clientAuthMethod!: pulumi.Output<string | undefined>;
     public readonly clientId!: pulumi.Output<string>;
-    public readonly clientSecret!: pulumi.Output<string>;
+    /**
+     * OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+     * "private_key_jwt".
+     */
+    public readonly clientSecret!: pulumi.Output<string | undefined>;
     public /*out*/ readonly discoveryDocument!: pulumi.Output<string>;
     public readonly discoveryUrl!: pulumi.Output<string | undefined>;
     public readonly emailOptional!: pulumi.Output<boolean>;
@@ -68,6 +83,8 @@ export class CustomOauthProvider extends pulumi.CustomResource {
             resourceInputs["acceptableClientIds"] = state ? state.acceptableClientIds : undefined;
             resourceInputs["authorizationParams"] = state ? state.authorizationParams : undefined;
             resourceInputs["authorizationUrl"] = state ? state.authorizationUrl : undefined;
+            resourceInputs["clientAssertionAudience"] = state ? state.clientAssertionAudience : undefined;
+            resourceInputs["clientAuthMethod"] = state ? state.clientAuthMethod : undefined;
             resourceInputs["clientId"] = state ? state.clientId : undefined;
             resourceInputs["clientSecret"] = state ? state.clientSecret : undefined;
             resourceInputs["discoveryDocument"] = state ? state.discoveryDocument : undefined;
@@ -89,9 +106,6 @@ export class CustomOauthProvider extends pulumi.CustomResource {
             if ((!args || args.clientId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'clientId'");
             }
-            if ((!args || args.clientSecret === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'clientSecret'");
-            }
             if ((!args || args.identifier === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'identifier'");
             }
@@ -101,6 +115,8 @@ export class CustomOauthProvider extends pulumi.CustomResource {
             resourceInputs["acceptableClientIds"] = args ? args.acceptableClientIds : undefined;
             resourceInputs["authorizationParams"] = args ? args.authorizationParams : undefined;
             resourceInputs["authorizationUrl"] = args ? args.authorizationUrl : undefined;
+            resourceInputs["clientAssertionAudience"] = args ? args.clientAssertionAudience : undefined;
+            resourceInputs["clientAuthMethod"] = args ? args.clientAuthMethod : undefined;
             resourceInputs["clientId"] = args ? args.clientId : undefined;
             resourceInputs["clientSecret"] = args?.clientSecret ? pulumi.secret(args.clientSecret) : undefined;
             resourceInputs["discoveryUrl"] = args ? args.discoveryUrl : undefined;
@@ -132,7 +148,22 @@ export interface CustomOauthProviderState {
     acceptableClientIds?: pulumi.Input<pulumi.Input<string>[]>;
     authorizationParams?: pulumi.Input<string>;
     authorizationUrl?: pulumi.Input<string>;
+    /**
+     * Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+     * client_auth_method "private_key_jwt".
+     */
+    clientAssertionAudience?: pulumi.Input<string>;
+    /**
+     * How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+     * assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+     * server.
+     */
+    clientAuthMethod?: pulumi.Input<string>;
     clientId?: pulumi.Input<string>;
+    /**
+     * OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+     * "private_key_jwt".
+     */
     clientSecret?: pulumi.Input<string>;
     discoveryDocument?: pulumi.Input<string>;
     discoveryUrl?: pulumi.Input<string>;
@@ -157,8 +188,23 @@ export interface CustomOauthProviderArgs {
     acceptableClientIds?: pulumi.Input<pulumi.Input<string>[]>;
     authorizationParams?: pulumi.Input<string>;
     authorizationUrl?: pulumi.Input<string>;
+    /**
+     * Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+     * client_auth_method "private_key_jwt".
+     */
+    clientAssertionAudience?: pulumi.Input<string>;
+    /**
+     * How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+     * assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+     * server.
+     */
+    clientAuthMethod?: pulumi.Input<string>;
     clientId: pulumi.Input<string>;
-    clientSecret: pulumi.Input<string>;
+    /**
+     * OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+     * "private_key_jwt".
+     */
+    clientSecret?: pulumi.Input<string>;
     discoveryUrl?: pulumi.Input<string>;
     emailOptional?: pulumi.Input<boolean>;
     enabled?: pulumi.Input<boolean>;
