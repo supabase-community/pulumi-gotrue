@@ -114,11 +114,20 @@
                 "authorizationUrl": {
                     "type": "string"
                 },
+                "clientAssertionAudience": {
+                    "type": "string",
+                    "description": "Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with\nclient_auth_method \"private_key_jwt\".\n"
+                },
+                "clientAuthMethod": {
+                    "type": "string",
+                    "description": "How GoTrue authenticates to the provider's token endpoint: \"client_secret\" (default) or \"private_key_jwt\" (signed client\nassertion, RFC 7523). \"private_key_jwt\" is only available for OIDC providers when client assertions are enabled on the\nserver.\n"
+                },
                 "clientId": {
                     "type": "string"
                 },
                 "clientSecret": {
                     "type": "string",
+                    "description": "OAuth client secret. Required when client_auth_method is \"client_secret\", and must not be set when it is\n\"private_key_jwt\".\n",
                     "secret": true
                 },
                 "discoveryDocument": {
@@ -169,7 +178,6 @@
             },
             "required": [
                 "clientId",
-                "clientSecret",
                 "discoveryDocument",
                 "emailOptional",
                 "enabled",
@@ -193,11 +201,20 @@
                 "authorizationUrl": {
                     "type": "string"
                 },
+                "clientAssertionAudience": {
+                    "type": "string",
+                    "description": "Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with\nclient_auth_method \"private_key_jwt\".\n"
+                },
+                "clientAuthMethod": {
+                    "type": "string",
+                    "description": "How GoTrue authenticates to the provider's token endpoint: \"client_secret\" (default) or \"private_key_jwt\" (signed client\nassertion, RFC 7523). \"private_key_jwt\" is only available for OIDC providers when client assertions are enabled on the\nserver.\n"
+                },
                 "clientId": {
                     "type": "string"
                 },
                 "clientSecret": {
                     "type": "string",
+                    "description": "OAuth client secret. Required when client_auth_method is \"client_secret\", and must not be set when it is\n\"private_key_jwt\".\n",
                     "secret": true
                 },
                 "discoveryUrl": {
@@ -247,7 +264,6 @@
             },
             "requiredInputs": [
                 "clientId",
-                "clientSecret",
                 "identifier",
                 "providerType"
             ],
@@ -266,11 +282,20 @@
                     "authorizationUrl": {
                         "type": "string"
                     },
+                    "clientAssertionAudience": {
+                        "type": "string",
+                        "description": "Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with\nclient_auth_method \"private_key_jwt\".\n"
+                    },
+                    "clientAuthMethod": {
+                        "type": "string",
+                        "description": "How GoTrue authenticates to the provider's token endpoint: \"client_secret\" (default) or \"private_key_jwt\" (signed client\nassertion, RFC 7523). \"private_key_jwt\" is only available for OIDC providers when client assertions are enabled on the\nserver.\n"
+                    },
                     "clientId": {
                         "type": "string"
                     },
                     "clientSecret": {
                         "type": "string",
+                        "description": "OAuth client secret. Required when client_auth_method is \"client_secret\", and must not be set when it is\n\"private_key_jwt\".\n",
                         "secret": true
                     },
                     "discoveryDocument": {

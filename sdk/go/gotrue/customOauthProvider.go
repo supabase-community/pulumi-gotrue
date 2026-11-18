@@ -17,22 +17,31 @@ type CustomOauthProvider struct {
 	AcceptableClientIds pulumi.StringArrayOutput `pulumi:"acceptableClientIds"`
 	AuthorizationParams pulumi.StringPtrOutput   `pulumi:"authorizationParams"`
 	AuthorizationUrl    pulumi.StringPtrOutput   `pulumi:"authorizationUrl"`
-	ClientId            pulumi.StringOutput      `pulumi:"clientId"`
-	ClientSecret        pulumi.StringOutput      `pulumi:"clientSecret"`
-	DiscoveryDocument   pulumi.StringOutput      `pulumi:"discoveryDocument"`
-	DiscoveryUrl        pulumi.StringPtrOutput   `pulumi:"discoveryUrl"`
-	EmailOptional       pulumi.BoolOutput        `pulumi:"emailOptional"`
-	Enabled             pulumi.BoolOutput        `pulumi:"enabled"`
-	Identifier          pulumi.StringOutput      `pulumi:"identifier"`
-	Issuer              pulumi.StringPtrOutput   `pulumi:"issuer"`
-	JwksUri             pulumi.StringPtrOutput   `pulumi:"jwksUri"`
-	Name                pulumi.StringOutput      `pulumi:"name"`
-	PkceEnabled         pulumi.BoolOutput        `pulumi:"pkceEnabled"`
-	ProviderType        pulumi.StringOutput      `pulumi:"providerType"`
-	Scopes              pulumi.StringArrayOutput `pulumi:"scopes"`
-	SkipNonceCheck      pulumi.BoolOutput        `pulumi:"skipNonceCheck"`
-	TokenUrl            pulumi.StringPtrOutput   `pulumi:"tokenUrl"`
-	UserinfoUrl         pulumi.StringPtrOutput   `pulumi:"userinfoUrl"`
+	// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+	// client_auth_method "private_key_jwt".
+	ClientAssertionAudience pulumi.StringPtrOutput `pulumi:"clientAssertionAudience"`
+	// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+	// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+	// server.
+	ClientAuthMethod pulumi.StringPtrOutput `pulumi:"clientAuthMethod"`
+	ClientId         pulumi.StringOutput    `pulumi:"clientId"`
+	// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+	// "private_key_jwt".
+	ClientSecret      pulumi.StringPtrOutput   `pulumi:"clientSecret"`
+	DiscoveryDocument pulumi.StringOutput      `pulumi:"discoveryDocument"`
+	DiscoveryUrl      pulumi.StringPtrOutput   `pulumi:"discoveryUrl"`
+	EmailOptional     pulumi.BoolOutput        `pulumi:"emailOptional"`
+	Enabled           pulumi.BoolOutput        `pulumi:"enabled"`
+	Identifier        pulumi.StringOutput      `pulumi:"identifier"`
+	Issuer            pulumi.StringPtrOutput   `pulumi:"issuer"`
+	JwksUri           pulumi.StringPtrOutput   `pulumi:"jwksUri"`
+	Name              pulumi.StringOutput      `pulumi:"name"`
+	PkceEnabled       pulumi.BoolOutput        `pulumi:"pkceEnabled"`
+	ProviderType      pulumi.StringOutput      `pulumi:"providerType"`
+	Scopes            pulumi.StringArrayOutput `pulumi:"scopes"`
+	SkipNonceCheck    pulumi.BoolOutput        `pulumi:"skipNonceCheck"`
+	TokenUrl          pulumi.StringPtrOutput   `pulumi:"tokenUrl"`
+	UserinfoUrl       pulumi.StringPtrOutput   `pulumi:"userinfoUrl"`
 }
 
 // NewCustomOauthProvider registers a new resource with the given unique name, arguments, and options.
@@ -45,9 +54,6 @@ func NewCustomOauthProvider(ctx *pulumi.Context,
 	if args.ClientId == nil {
 		return nil, errors.New("invalid value for required argument 'ClientId'")
 	}
-	if args.ClientSecret == nil {
-		return nil, errors.New("invalid value for required argument 'ClientSecret'")
-	}
 	if args.Identifier == nil {
 		return nil, errors.New("invalid value for required argument 'Identifier'")
 	}
@@ -55,7 +61,7 @@ func NewCustomOauthProvider(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'ProviderType'")
 	}
 	if args.ClientSecret != nil {
-		args.ClientSecret = pulumi.ToSecret(args.ClientSecret).(pulumi.StringOutput)
+		args.ClientSecret = pulumi.ToSecret(args.ClientSecret).(pulumi.StringPtrOutput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"clientSecret",
@@ -87,44 +93,62 @@ type customOauthProviderState struct {
 	AcceptableClientIds []string `pulumi:"acceptableClientIds"`
 	AuthorizationParams *string  `pulumi:"authorizationParams"`
 	AuthorizationUrl    *string  `pulumi:"authorizationUrl"`
-	ClientId            *string  `pulumi:"clientId"`
-	ClientSecret        *string  `pulumi:"clientSecret"`
-	DiscoveryDocument   *string  `pulumi:"discoveryDocument"`
-	DiscoveryUrl        *string  `pulumi:"discoveryUrl"`
-	EmailOptional       *bool    `pulumi:"emailOptional"`
-	Enabled             *bool    `pulumi:"enabled"`
-	Identifier          *string  `pulumi:"identifier"`
-	Issuer              *string  `pulumi:"issuer"`
-	JwksUri             *string  `pulumi:"jwksUri"`
-	Name                *string  `pulumi:"name"`
-	PkceEnabled         *bool    `pulumi:"pkceEnabled"`
-	ProviderType        *string  `pulumi:"providerType"`
-	Scopes              []string `pulumi:"scopes"`
-	SkipNonceCheck      *bool    `pulumi:"skipNonceCheck"`
-	TokenUrl            *string  `pulumi:"tokenUrl"`
-	UserinfoUrl         *string  `pulumi:"userinfoUrl"`
+	// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+	// client_auth_method "private_key_jwt".
+	ClientAssertionAudience *string `pulumi:"clientAssertionAudience"`
+	// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+	// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+	// server.
+	ClientAuthMethod *string `pulumi:"clientAuthMethod"`
+	ClientId         *string `pulumi:"clientId"`
+	// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+	// "private_key_jwt".
+	ClientSecret      *string  `pulumi:"clientSecret"`
+	DiscoveryDocument *string  `pulumi:"discoveryDocument"`
+	DiscoveryUrl      *string  `pulumi:"discoveryUrl"`
+	EmailOptional     *bool    `pulumi:"emailOptional"`
+	Enabled           *bool    `pulumi:"enabled"`
+	Identifier        *string  `pulumi:"identifier"`
+	Issuer            *string  `pulumi:"issuer"`
+	JwksUri           *string  `pulumi:"jwksUri"`
+	Name              *string  `pulumi:"name"`
+	PkceEnabled       *bool    `pulumi:"pkceEnabled"`
+	ProviderType      *string  `pulumi:"providerType"`
+	Scopes            []string `pulumi:"scopes"`
+	SkipNonceCheck    *bool    `pulumi:"skipNonceCheck"`
+	TokenUrl          *string  `pulumi:"tokenUrl"`
+	UserinfoUrl       *string  `pulumi:"userinfoUrl"`
 }
 
 type CustomOauthProviderState struct {
 	AcceptableClientIds pulumi.StringArrayInput
 	AuthorizationParams pulumi.StringPtrInput
 	AuthorizationUrl    pulumi.StringPtrInput
-	ClientId            pulumi.StringPtrInput
-	ClientSecret        pulumi.StringPtrInput
-	DiscoveryDocument   pulumi.StringPtrInput
-	DiscoveryUrl        pulumi.StringPtrInput
-	EmailOptional       pulumi.BoolPtrInput
-	Enabled             pulumi.BoolPtrInput
-	Identifier          pulumi.StringPtrInput
-	Issuer              pulumi.StringPtrInput
-	JwksUri             pulumi.StringPtrInput
-	Name                pulumi.StringPtrInput
-	PkceEnabled         pulumi.BoolPtrInput
-	ProviderType        pulumi.StringPtrInput
-	Scopes              pulumi.StringArrayInput
-	SkipNonceCheck      pulumi.BoolPtrInput
-	TokenUrl            pulumi.StringPtrInput
-	UserinfoUrl         pulumi.StringPtrInput
+	// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+	// client_auth_method "private_key_jwt".
+	ClientAssertionAudience pulumi.StringPtrInput
+	// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+	// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+	// server.
+	ClientAuthMethod pulumi.StringPtrInput
+	ClientId         pulumi.StringPtrInput
+	// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+	// "private_key_jwt".
+	ClientSecret      pulumi.StringPtrInput
+	DiscoveryDocument pulumi.StringPtrInput
+	DiscoveryUrl      pulumi.StringPtrInput
+	EmailOptional     pulumi.BoolPtrInput
+	Enabled           pulumi.BoolPtrInput
+	Identifier        pulumi.StringPtrInput
+	Issuer            pulumi.StringPtrInput
+	JwksUri           pulumi.StringPtrInput
+	Name              pulumi.StringPtrInput
+	PkceEnabled       pulumi.BoolPtrInput
+	ProviderType      pulumi.StringPtrInput
+	Scopes            pulumi.StringArrayInput
+	SkipNonceCheck    pulumi.BoolPtrInput
+	TokenUrl          pulumi.StringPtrInput
+	UserinfoUrl       pulumi.StringPtrInput
 }
 
 func (CustomOauthProviderState) ElementType() reflect.Type {
@@ -135,21 +159,30 @@ type customOauthProviderArgs struct {
 	AcceptableClientIds []string `pulumi:"acceptableClientIds"`
 	AuthorizationParams *string  `pulumi:"authorizationParams"`
 	AuthorizationUrl    *string  `pulumi:"authorizationUrl"`
-	ClientId            string   `pulumi:"clientId"`
-	ClientSecret        string   `pulumi:"clientSecret"`
-	DiscoveryUrl        *string  `pulumi:"discoveryUrl"`
-	EmailOptional       *bool    `pulumi:"emailOptional"`
-	Enabled             *bool    `pulumi:"enabled"`
-	Identifier          string   `pulumi:"identifier"`
-	Issuer              *string  `pulumi:"issuer"`
-	JwksUri             *string  `pulumi:"jwksUri"`
-	Name                *string  `pulumi:"name"`
-	PkceEnabled         *bool    `pulumi:"pkceEnabled"`
-	ProviderType        string   `pulumi:"providerType"`
-	Scopes              []string `pulumi:"scopes"`
-	SkipNonceCheck      *bool    `pulumi:"skipNonceCheck"`
-	TokenUrl            *string  `pulumi:"tokenUrl"`
-	UserinfoUrl         *string  `pulumi:"userinfoUrl"`
+	// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+	// client_auth_method "private_key_jwt".
+	ClientAssertionAudience *string `pulumi:"clientAssertionAudience"`
+	// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+	// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+	// server.
+	ClientAuthMethod *string `pulumi:"clientAuthMethod"`
+	ClientId         string  `pulumi:"clientId"`
+	// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+	// "private_key_jwt".
+	ClientSecret   *string  `pulumi:"clientSecret"`
+	DiscoveryUrl   *string  `pulumi:"discoveryUrl"`
+	EmailOptional  *bool    `pulumi:"emailOptional"`
+	Enabled        *bool    `pulumi:"enabled"`
+	Identifier     string   `pulumi:"identifier"`
+	Issuer         *string  `pulumi:"issuer"`
+	JwksUri        *string  `pulumi:"jwksUri"`
+	Name           *string  `pulumi:"name"`
+	PkceEnabled    *bool    `pulumi:"pkceEnabled"`
+	ProviderType   string   `pulumi:"providerType"`
+	Scopes         []string `pulumi:"scopes"`
+	SkipNonceCheck *bool    `pulumi:"skipNonceCheck"`
+	TokenUrl       *string  `pulumi:"tokenUrl"`
+	UserinfoUrl    *string  `pulumi:"userinfoUrl"`
 }
 
 // The set of arguments for constructing a CustomOauthProvider resource.
@@ -157,21 +190,30 @@ type CustomOauthProviderArgs struct {
 	AcceptableClientIds pulumi.StringArrayInput
 	AuthorizationParams pulumi.StringPtrInput
 	AuthorizationUrl    pulumi.StringPtrInput
-	ClientId            pulumi.StringInput
-	ClientSecret        pulumi.StringInput
-	DiscoveryUrl        pulumi.StringPtrInput
-	EmailOptional       pulumi.BoolPtrInput
-	Enabled             pulumi.BoolPtrInput
-	Identifier          pulumi.StringInput
-	Issuer              pulumi.StringPtrInput
-	JwksUri             pulumi.StringPtrInput
-	Name                pulumi.StringPtrInput
-	PkceEnabled         pulumi.BoolPtrInput
-	ProviderType        pulumi.StringInput
-	Scopes              pulumi.StringArrayInput
-	SkipNonceCheck      pulumi.BoolPtrInput
-	TokenUrl            pulumi.StringPtrInput
-	UserinfoUrl         pulumi.StringPtrInput
+	// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+	// client_auth_method "private_key_jwt".
+	ClientAssertionAudience pulumi.StringPtrInput
+	// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+	// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+	// server.
+	ClientAuthMethod pulumi.StringPtrInput
+	ClientId         pulumi.StringInput
+	// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+	// "private_key_jwt".
+	ClientSecret   pulumi.StringPtrInput
+	DiscoveryUrl   pulumi.StringPtrInput
+	EmailOptional  pulumi.BoolPtrInput
+	Enabled        pulumi.BoolPtrInput
+	Identifier     pulumi.StringInput
+	Issuer         pulumi.StringPtrInput
+	JwksUri        pulumi.StringPtrInput
+	Name           pulumi.StringPtrInput
+	PkceEnabled    pulumi.BoolPtrInput
+	ProviderType   pulumi.StringInput
+	Scopes         pulumi.StringArrayInput
+	SkipNonceCheck pulumi.BoolPtrInput
+	TokenUrl       pulumi.StringPtrInput
+	UserinfoUrl    pulumi.StringPtrInput
 }
 
 func (CustomOauthProviderArgs) ElementType() reflect.Type {
@@ -273,12 +315,27 @@ func (o CustomOauthProviderOutput) AuthorizationUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.AuthorizationUrl }).(pulumi.StringPtrOutput)
 }
 
+// Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+// client_auth_method "private_key_jwt".
+func (o CustomOauthProviderOutput) ClientAssertionAudience() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.ClientAssertionAudience }).(pulumi.StringPtrOutput)
+}
+
+// How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+// assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+// server.
+func (o CustomOauthProviderOutput) ClientAuthMethod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.ClientAuthMethod }).(pulumi.StringPtrOutput)
+}
+
 func (o CustomOauthProviderOutput) ClientId() pulumi.StringOutput {
 	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringOutput { return v.ClientId }).(pulumi.StringOutput)
 }
 
-func (o CustomOauthProviderOutput) ClientSecret() pulumi.StringOutput {
-	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringOutput { return v.ClientSecret }).(pulumi.StringOutput)
+// OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+// "private_key_jwt".
+func (o CustomOauthProviderOutput) ClientSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomOauthProvider) pulumi.StringPtrOutput { return v.ClientSecret }).(pulumi.StringPtrOutput)
 }
 
 func (o CustomOauthProviderOutput) DiscoveryDocument() pulumi.StringOutput {

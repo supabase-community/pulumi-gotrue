@@ -15,12 +15,14 @@ __all__ = ['CustomOauthProviderArgs', 'CustomOauthProvider']
 class CustomOauthProviderArgs:
     def __init__(__self__, *,
                  client_id: pulumi.Input[str],
-                 client_secret: pulumi.Input[str],
                  identifier: pulumi.Input[str],
                  provider_type: pulumi.Input[str],
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
+                 client_assertion_audience: Optional[pulumi.Input[str]] = None,
+                 client_auth_method: Optional[pulumi.Input[str]] = None,
+                 client_secret: Optional[pulumi.Input[str]] = None,
                  discovery_url: Optional[pulumi.Input[str]] = None,
                  email_optional: Optional[pulumi.Input[bool]] = None,
                  enabled: Optional[pulumi.Input[bool]] = None,
@@ -34,9 +36,15 @@ class CustomOauthProviderArgs:
                  userinfo_url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a CustomOauthProvider resource.
+        :param pulumi.Input[str] client_assertion_audience: Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+               client_auth_method "private_key_jwt".
+        :param pulumi.Input[str] client_auth_method: How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+               assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+               server.
+        :param pulumi.Input[str] client_secret: OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+               "private_key_jwt".
         """
         pulumi.set(__self__, "client_id", client_id)
-        pulumi.set(__self__, "client_secret", client_secret)
         pulumi.set(__self__, "identifier", identifier)
         pulumi.set(__self__, "provider_type", provider_type)
         if acceptable_client_ids is not None:
@@ -45,6 +53,12 @@ class CustomOauthProviderArgs:
             pulumi.set(__self__, "authorization_params", authorization_params)
         if authorization_url is not None:
             pulumi.set(__self__, "authorization_url", authorization_url)
+        if client_assertion_audience is not None:
+            pulumi.set(__self__, "client_assertion_audience", client_assertion_audience)
+        if client_auth_method is not None:
+            pulumi.set(__self__, "client_auth_method", client_auth_method)
+        if client_secret is not None:
+            pulumi.set(__self__, "client_secret", client_secret)
         if discovery_url is not None:
             pulumi.set(__self__, "discovery_url", discovery_url)
         if email_optional is not None:
@@ -76,15 +90,6 @@ class CustomOauthProviderArgs:
     @client_id.setter
     def client_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "client_id", value)
-
-    @property
-    @pulumi.getter(name="clientSecret")
-    def client_secret(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "client_secret")
-
-    @client_secret.setter
-    def client_secret(self, value: pulumi.Input[str]):
-        pulumi.set(self, "client_secret", value)
 
     @property
     @pulumi.getter
@@ -130,6 +135,46 @@ class CustomOauthProviderArgs:
     @authorization_url.setter
     def authorization_url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "authorization_url", value)
+
+    @property
+    @pulumi.getter(name="clientAssertionAudience")
+    def client_assertion_audience(self) -> Optional[pulumi.Input[str]]:
+        """
+        Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        client_auth_method "private_key_jwt".
+        """
+        return pulumi.get(self, "client_assertion_audience")
+
+    @client_assertion_audience.setter
+    def client_assertion_audience(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_assertion_audience", value)
+
+    @property
+    @pulumi.getter(name="clientAuthMethod")
+    def client_auth_method(self) -> Optional[pulumi.Input[str]]:
+        """
+        How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        server.
+        """
+        return pulumi.get(self, "client_auth_method")
+
+    @client_auth_method.setter
+    def client_auth_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_auth_method", value)
+
+    @property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> Optional[pulumi.Input[str]]:
+        """
+        OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        "private_key_jwt".
+        """
+        return pulumi.get(self, "client_secret")
+
+    @client_secret.setter
+    def client_secret(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_secret", value)
 
     @property
     @pulumi.getter(name="discoveryUrl")
@@ -237,6 +282,8 @@ class _CustomOauthProviderState:
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
+                 client_assertion_audience: Optional[pulumi.Input[str]] = None,
+                 client_auth_method: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
                  client_secret: Optional[pulumi.Input[str]] = None,
                  discovery_document: Optional[pulumi.Input[str]] = None,
@@ -255,6 +302,13 @@ class _CustomOauthProviderState:
                  userinfo_url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering CustomOauthProvider resources.
+        :param pulumi.Input[str] client_assertion_audience: Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+               client_auth_method "private_key_jwt".
+        :param pulumi.Input[str] client_auth_method: How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+               assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+               server.
+        :param pulumi.Input[str] client_secret: OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+               "private_key_jwt".
         """
         if acceptable_client_ids is not None:
             pulumi.set(__self__, "acceptable_client_ids", acceptable_client_ids)
@@ -262,6 +316,10 @@ class _CustomOauthProviderState:
             pulumi.set(__self__, "authorization_params", authorization_params)
         if authorization_url is not None:
             pulumi.set(__self__, "authorization_url", authorization_url)
+        if client_assertion_audience is not None:
+            pulumi.set(__self__, "client_assertion_audience", client_assertion_audience)
+        if client_auth_method is not None:
+            pulumi.set(__self__, "client_auth_method", client_auth_method)
         if client_id is not None:
             pulumi.set(__self__, "client_id", client_id)
         if client_secret is not None:
@@ -323,6 +381,33 @@ class _CustomOauthProviderState:
         pulumi.set(self, "authorization_url", value)
 
     @property
+    @pulumi.getter(name="clientAssertionAudience")
+    def client_assertion_audience(self) -> Optional[pulumi.Input[str]]:
+        """
+        Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        client_auth_method "private_key_jwt".
+        """
+        return pulumi.get(self, "client_assertion_audience")
+
+    @client_assertion_audience.setter
+    def client_assertion_audience(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_assertion_audience", value)
+
+    @property
+    @pulumi.getter(name="clientAuthMethod")
+    def client_auth_method(self) -> Optional[pulumi.Input[str]]:
+        """
+        How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        server.
+        """
+        return pulumi.get(self, "client_auth_method")
+
+    @client_auth_method.setter
+    def client_auth_method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "client_auth_method", value)
+
+    @property
     @pulumi.getter(name="clientId")
     def client_id(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "client_id")
@@ -334,6 +419,10 @@ class _CustomOauthProviderState:
     @property
     @pulumi.getter(name="clientSecret")
     def client_secret(self) -> Optional[pulumi.Input[str]]:
+        """
+        OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        "private_key_jwt".
+        """
         return pulumi.get(self, "client_secret")
 
     @client_secret.setter
@@ -475,6 +564,8 @@ class CustomOauthProvider(pulumi.CustomResource):
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
+                 client_assertion_audience: Optional[pulumi.Input[str]] = None,
+                 client_auth_method: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
                  client_secret: Optional[pulumi.Input[str]] = None,
                  discovery_url: Optional[pulumi.Input[str]] = None,
@@ -495,6 +586,13 @@ class CustomOauthProvider(pulumi.CustomResource):
         Create a CustomOauthProvider resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] client_assertion_audience: Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+               client_auth_method "private_key_jwt".
+        :param pulumi.Input[str] client_auth_method: How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+               assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+               server.
+        :param pulumi.Input[str] client_secret: OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+               "private_key_jwt".
         """
         ...
     @overload
@@ -522,6 +620,8 @@ class CustomOauthProvider(pulumi.CustomResource):
                  acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  authorization_params: Optional[pulumi.Input[str]] = None,
                  authorization_url: Optional[pulumi.Input[str]] = None,
+                 client_assertion_audience: Optional[pulumi.Input[str]] = None,
+                 client_auth_method: Optional[pulumi.Input[str]] = None,
                  client_id: Optional[pulumi.Input[str]] = None,
                  client_secret: Optional[pulumi.Input[str]] = None,
                  discovery_url: Optional[pulumi.Input[str]] = None,
@@ -549,11 +649,11 @@ class CustomOauthProvider(pulumi.CustomResource):
             __props__.__dict__["acceptable_client_ids"] = acceptable_client_ids
             __props__.__dict__["authorization_params"] = authorization_params
             __props__.__dict__["authorization_url"] = authorization_url
+            __props__.__dict__["client_assertion_audience"] = client_assertion_audience
+            __props__.__dict__["client_auth_method"] = client_auth_method
             if client_id is None and not opts.urn:
                 raise TypeError("Missing required property 'client_id'")
             __props__.__dict__["client_id"] = client_id
-            if client_secret is None and not opts.urn:
-                raise TypeError("Missing required property 'client_secret'")
             __props__.__dict__["client_secret"] = None if client_secret is None else pulumi.Output.secret(client_secret)
             __props__.__dict__["discovery_url"] = discovery_url
             __props__.__dict__["email_optional"] = email_optional
@@ -588,6 +688,8 @@ class CustomOauthProvider(pulumi.CustomResource):
             acceptable_client_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             authorization_params: Optional[pulumi.Input[str]] = None,
             authorization_url: Optional[pulumi.Input[str]] = None,
+            client_assertion_audience: Optional[pulumi.Input[str]] = None,
+            client_auth_method: Optional[pulumi.Input[str]] = None,
             client_id: Optional[pulumi.Input[str]] = None,
             client_secret: Optional[pulumi.Input[str]] = None,
             discovery_document: Optional[pulumi.Input[str]] = None,
@@ -611,6 +713,13 @@ class CustomOauthProvider(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] client_assertion_audience: Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+               client_auth_method "private_key_jwt".
+        :param pulumi.Input[str] client_auth_method: How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+               assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+               server.
+        :param pulumi.Input[str] client_secret: OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+               "private_key_jwt".
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -619,6 +728,8 @@ class CustomOauthProvider(pulumi.CustomResource):
         __props__.__dict__["acceptable_client_ids"] = acceptable_client_ids
         __props__.__dict__["authorization_params"] = authorization_params
         __props__.__dict__["authorization_url"] = authorization_url
+        __props__.__dict__["client_assertion_audience"] = client_assertion_audience
+        __props__.__dict__["client_auth_method"] = client_auth_method
         __props__.__dict__["client_id"] = client_id
         __props__.__dict__["client_secret"] = client_secret
         __props__.__dict__["discovery_document"] = discovery_document
@@ -653,13 +764,36 @@ class CustomOauthProvider(pulumi.CustomResource):
         return pulumi.get(self, "authorization_url")
 
     @property
+    @pulumi.getter(name="clientAssertionAudience")
+    def client_assertion_audience(self) -> pulumi.Output[Optional[str]]:
+        """
+        Overrides the aud claim of client assertions, which defaults to the provider's issuer. Only allowed with
+        client_auth_method "private_key_jwt".
+        """
+        return pulumi.get(self, "client_assertion_audience")
+
+    @property
+    @pulumi.getter(name="clientAuthMethod")
+    def client_auth_method(self) -> pulumi.Output[Optional[str]]:
+        """
+        How GoTrue authenticates to the provider's token endpoint: "client_secret" (default) or "private_key_jwt" (signed client
+        assertion, RFC 7523). "private_key_jwt" is only available for OIDC providers when client assertions are enabled on the
+        server.
+        """
+        return pulumi.get(self, "client_auth_method")
+
+    @property
     @pulumi.getter(name="clientId")
     def client_id(self) -> pulumi.Output[str]:
         return pulumi.get(self, "client_id")
 
     @property
     @pulumi.getter(name="clientSecret")
-    def client_secret(self) -> pulumi.Output[str]:
+    def client_secret(self) -> pulumi.Output[Optional[str]]:
+        """
+        OAuth client secret. Required when client_auth_method is "client_secret", and must not be set when it is
+        "private_key_jwt".
+        """
         return pulumi.get(self, "client_secret")
 
     @property
